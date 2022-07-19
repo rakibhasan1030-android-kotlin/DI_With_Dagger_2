@@ -3,18 +3,20 @@ package rakib.hasan.diwithdagger
 import dagger.Module
 import dagger.Provides
 import javax.inject.Named
+import javax.inject.Singleton
 
 @Module
-class NotificationServiceModule {
+class NotificationServiceModule() {
 
 
     /**
      * if Dagger can not make a object its self, then we will annotate it with Provides
      * */
+    @Singleton
     @MessageServiceQualifier
     @Provides
-    fun getMassageService(): NotificationService{
-        return MassageService()
+    fun getMassageService(retryCount: Int): NotificationService{
+        return MassageService(retryCount)
     }
 
     @Named("email")
